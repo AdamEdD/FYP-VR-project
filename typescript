@@ -1,0 +1,15 @@
+Script started on Sat Feb 11 02:46:35 2017
+[?1034hbash-3.2$ from firebase import firebase
+from: can't read /var/mail/firebase
+bash-3.2$     db = firebase.FirebaseApplication('https://fyp-vr-project.firebaseio.com/', None)
+bash: syntax error near unexpected token `('
+bash-3.2$     l=[]
+bash-3.2$     for i in db.get('users',None):
+bash: syntax error near unexpected token `('
+bash-3.2$         l.append(i)
+bash: syntax error near unexpected token `i'
+bash-3.2$     print(len(l))
+bash: syntax error near unexpected token `len'
+bash-3.2$ exit
+
+Script done on Sat Feb 11 02:47:24 2017
