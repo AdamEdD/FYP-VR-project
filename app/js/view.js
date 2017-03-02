@@ -51,15 +51,18 @@ var View = (function () {
       }, function (error) {
                   console.log("Error: " + error.code);
       });*/
+        function r() {
+            var red = https, //www.reddit.com/r/til.json;
+            let = json = red.json();
+            for (var i = 0; i < json.data.children.length; i++) {
+                console.log(json.data.children[i].data.url);
+            }
+        }
         function render(scene) {
             function euclidean(x, y) { return Math.sqrt(Math.pow(x[0] + y[0], 2) + Math.pow(x[1] + y[1], 2) + Math.pow(x[2] + y[2], 2)); }
             ;
-            var sumx = 0;
-            var sumy = 0;
-            var sumz = 0;
-            var iter = 0;
             var Redditcoordinates = firebase.database().ref("reddits/").once('value').then(function (snapshot) {
-                for (var key in snapshot.val()) {
+                var _loop_1 = function (key) {
                     if (snapshot.val().hasOwnProperty(key)) {
                         for (var k in snapshot.val()[key]) {
                             if (snapshot.val()[key].hasOwnProperty(k)) {
@@ -84,44 +87,45 @@ var View = (function () {
                                 box.material = boxMaterial;
                                 box.convertToUnIndexedMesh();
                                 box.position = new BABYLON.Vector3(snapshot.val()[key][k][0], snapshot.val()[key][k][1], snapshot.val()[key][k][2]);
+                                box.actionManager = new BABYLON.ActionManager(scene);
+                                box.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
+                                    alert(key);
+                                }));
                             }
                         }
                     }
+                };
+                for (var key in snapshot.val()) {
+                    _loop_1(key);
                 }
-                console.log(sumx / iter, sumy / iter, sumz / iter);
             });
             var r_connections = firebase.database().ref("reddit_con_coords/").once('value').then(function (snapshot) {
-                var sphere = BABYLON.Mesh.CreateSphere("sphere1", 4, .5, scene);
-                var sm = new BABYLON.StandardMaterial("material", scene);
-                sm.emissiveColor = new BABYLON.Color3(1, 1, 1);
-                sm.alpha = 0.1;
-                sphere.material = sm;
                 for (var key in snapshot.val()) {
                     if (snapshot.val().hasOwnProperty(key)) {
+                        var alpha = 100 * (1 / euclidean(snapshot.val()[key][0], snapshot.val()[key][1]));
                         var lines = BABYLON.Mesh.CreateTube("tube", [
                             new BABYLON.Vector3(snapshot.val()[key][0][0], snapshot.val()[key][0][1], snapshot.val()[key][0][2]),
                             new BABYLON.Vector3(snapshot.val()[key][1][0], snapshot.val()[key][1][1], snapshot.val()[key][1][2])
-                        ], .009, null, null, 0, scene, false, BABYLON.Mesh.FRONTSIDE);
+                        ], .01, null, null, 0, scene, false, BABYLON.Mesh.FRONTSIDE);
                         lines.freezeNormals();
                         var linemat = new BABYLON.StandardMaterial("material", scene);
                         linemat.emissiveColor = new BABYLON.Color3(.55, 1, .46);
-                        linemat.alpha = 0.7;
+                        linemat.alpha = alpha;
                         lines.material = linemat;
-                        var instanceofsphere = sphere.createInstance('spheres');
-                        instanceofsphere.position = new BABYLON.Vector3(snapshot.val()[key][1][0], snapshot.val()[key][1][1], snapshot.val()[key][1][2]);
                     }
                 }
             });
             var u_connections = firebase.database().ref("reddit_con_coords/").once('value').then(function (snapshot) {
                 for (var key in snapshot.val()) {
                     if (snapshot.val().hasOwnProperty(key)) {
+                        var alpha = 100 * (1 / euclidean(snapshot.val()[key][0], snapshot.val()[key][1]));
                         var lines = BABYLON.Mesh.CreateTube("tube", [
                             new BABYLON.Vector3(snapshot.val()[key][0][0], snapshot.val()[key][0][1], snapshot.val()[key][0][2]),
                             new BABYLON.Vector3(snapshot.val()[key][1][0], snapshot.val()[key][1][1], snapshot.val()[key][1][2])
                         ], .009, null, null, 0, scene, false, BABYLON.Mesh.FRONTSIDE);
                         var linemat = new BABYLON.StandardMaterial("material", scene);
                         linemat.emissiveColor = new BABYLON.Color3(1, 0, 1);
-                        linemat.alpha = 0.7;
+                        linemat.alpha = alpha;
                         lines.material = linemat;
                     }
                 }
@@ -139,7 +143,6 @@ var View = (function () {
         sphere.material = sphereMaterial;
         sphere.convertToUnIndexedMesh();
         sphere.actionManager = new BABYLON.ActionManager(this._scene);
-        var condition1 = new BABYLON.StateCondition(sphere.actionManager, light1, "off");
         db_UserCo.on("value", function (snapshot) {
             for (var key in snapshot.val()) {
                 if (snapshot.val().hasOwnProperty(key)) {

@@ -75,6 +75,7 @@ class View {
                 console.log("Error: " + error.code);
     });*/
       
+    
     function render(scene) {
         
         function euclidean(x,y): number { return Math.sqrt(Math.pow(x[0]+y[0],2)+Math.pow(x[1]+y[1],2)+Math.pow(x[2]+y[2],2)); };
@@ -91,7 +92,7 @@ class View {
                                                       snapshot.val()[key][k],
                                                       [51.809306223434014,
                                                        51.888140847943774,
-                                                       48.62521675494634]
+                                                       48.62521675494634]   
                                                     );
                             
                               let color='';
@@ -116,6 +117,13 @@ class View {
                               box.position = new BABYLON.Vector3(snapshot.val()[key][k][0], 
                                                            snapshot.val()[key][k][1],                               
                                                             snapshot.val()[key][k][2]);
+                            
+                              box.actionManager = new BABYLON.ActionManager(scene);
+
+                              box.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger,                                           function () {
+                                                                    alert(key);
+                                                                   })
+                                                              );
                         }
                     }   
                   }
@@ -123,16 +131,12 @@ class View {
         });
         
         let r_connections = firebase.database().ref("reddit_con_coords/").once('value').then(function(snapshot) {
-
-            
-            let sphere = BABYLON.Mesh.CreateSphere("sphere1", 4, .5, scene);
-            let sm = new BABYLON.StandardMaterial("material", scene);
-            sm.emissiveColor = new BABYLON.Color3(1, 1, 1);
-            sm.alpha = 0.1;
-            sphere.material = sm;
             
             for (let key in snapshot.val()) {
                 if (snapshot.val().hasOwnProperty(key)) {
+                    
+                    let alpha = 100*(1/euclidean(snapshot.val()[key][0],
+                                           snapshot.val()[key][1]));
                     
                     let lines = BABYLON.Mesh.CreateTube("tube", [ 
                                 new BABYLON.Vector3(snapshot.val()[key][0][0],
@@ -142,22 +146,16 @@ class View {
                                 new BABYLON.Vector3(snapshot.val()[key][1][0],
                                                     snapshot.val()[key][1][1],
                                                     snapshot.val()[key][1][2])
-                            ], .009, null, null, 0, scene, false, BABYLON.Mesh.FRONTSIDE);
+                            ], .01, null, null, 0, scene, false, BABYLON.Mesh.FRONTSIDE);
                     lines.freezeNormals();
                     
                     let linemat = new BABYLON.StandardMaterial("material", scene);
                     linemat.emissiveColor = new BABYLON.Color3(.55,
                                                                1, 
                                                                .46);
-                    linemat.alpha = 0.7;
+                    linemat.alpha = alpha;
                     
                     lines.material = linemat;
-                    
-                    let instanceofsphere = sphere.createInstance('spheres');
-                    
-                    instanceofsphere.position = new BABYLON.Vector3(snapshot.val()[key][1][0],
-                                                       snapshot.val()[key][1][1],
-                                                       snapshot.val()[key][1][2]);
                     }
                 }
         });
@@ -166,6 +164,9 @@ class View {
             
             for (let key in snapshot.val()) {
                 if (snapshot.val().hasOwnProperty(key)) {
+                    
+                    let alpha = 100*(1/euclidean(snapshot.val()[key][0],
+                                           snapshot.val()[key][1]));
                     
                     let lines = BABYLON.Mesh.CreateTube("tube", [ 
                                 new BABYLON.Vector3(snapshot.val()[key][0][0],
@@ -179,7 +180,7 @@ class View {
                     
                     let linemat = new BABYLON.StandardMaterial("material", scene);
                     linemat.emissiveColor = new BABYLON.Color3(1, 0, 1);
-                    linemat.alpha = 0.7;
+                    linemat.alpha = alpha;
                     lines.material = linemat;
                     
                     }
@@ -203,7 +204,6 @@ class View {
     sphere.convertToUnIndexedMesh();
 
     sphere.actionManager = new BABYLON.ActionManager(this._scene);
-    let condition1 = new BABYLON.StateCondition(sphere.actionManager, light1, "off");
       
     db_UserCo.on("value", function(snapshot) {
 
