@@ -74,7 +74,6 @@ class View {
     }, function (error) {
                 console.log("Error: " + error.code);
     });*/
-      
     
     function render(scene) {
         
@@ -120,10 +119,26 @@ class View {
                             
                               box.actionManager = new BABYLON.ActionManager(scene);
 
-                              box.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger,                                           function () {
-                                                                    alert(key);
-                                                                   })
-                                                              );
+                              box.actionManager.registerAction(
+                                  new BABYLON.ExecuteCodeAction(
+                                      BABYLON.ActionManager.OnPickTrigger, 
+                                          function () {
+                                                        let url = "https://www.reddit.com/r/"+key+"/new.json?sort=new"
+                                                        $.getJSON(url, function (data) {
+                                                            let cList = $('ul.mylist')
+                                                            $.each(data.data.children, function (i, item) {
+                                                                let li = $('<li/>')
+                                                                    .addClass('reddit-item')
+                                                                    .appendTo(cList);
+                                                                let aaa = $('<a/>')
+                                                                    .addClass('permalink')
+                                                                    .text(item.data.author +': \n'+ item.data.permalink)
+                                                                    .appendTo(li);
+                                                            });
+                                                            document.getElementById("reddit-info").style.visibility = "visible";
+                                                        });
+                                                    })
+                                                );
                         }
                     }   
                   }

@@ -33,11 +33,28 @@
             width   : 100%;
             height  : 100%;
         }
+    #reddit-info {
+        top: 10%;
+        left: 50%;
+        background-color: azure;
+        position: absolute;
+        visibility: collapse;
+        word-wrap: break-word;
+    }
 </style>
 </head>
 <body>
 
-<canvas id="renderCanvas"></canvas><!--
+<canvas id="renderCanvas"></canvas>
+<div id="reddit-info">
+    <button onclick="document.getElementById('reddit-info').style.visibility = 'collapse'">close</button>
+    <ul class="mylist">
+        <li class="reddit-item">
+            <a class="permalink"></a>
+        </li>
+    </ul>
+</div>
+<!--
 <div id="video-container-left">
     <video id="camera-stream-left" width="100%" height="100%" autoplay></video>
 </div>

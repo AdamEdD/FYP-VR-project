@@ -51,13 +51,6 @@ var View = (function () {
       }, function (error) {
                   console.log("Error: " + error.code);
       });*/
-        function r() {
-            var red = https, //www.reddit.com/r/til.json;
-            let = json = red.json();
-            for (var i = 0; i < json.data.children.length; i++) {
-                console.log(json.data.children[i].data.url);
-            }
-        }
         function render(scene) {
             function euclidean(x, y) { return Math.sqrt(Math.pow(x[0] + y[0], 2) + Math.pow(x[1] + y[1], 2) + Math.pow(x[2] + y[2], 2)); }
             ;
@@ -89,7 +82,20 @@ var View = (function () {
                                 box.position = new BABYLON.Vector3(snapshot.val()[key][k][0], snapshot.val()[key][k][1], snapshot.val()[key][k][2]);
                                 box.actionManager = new BABYLON.ActionManager(scene);
                                 box.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
-                                    alert(key);
+                                    var url = "https://www.reddit.com/r/" + key + "/new.json?sort=new";
+                                    $.getJSON(url, function (data) {
+                                        var cList = $('ul.mylist');
+                                        $.each(data.data.children, function (i, item) {
+                                            var li = $('<li/>')
+                                                .addClass('reddit-item')
+                                                .appendTo(cList);
+                                            var aaa = $('<a/>')
+                                                .addClass('permalink')
+                                                .text(item.data.author + ': \n' + item.data.permalink)
+                                                .appendTo(li);
+                                        });
+                                        document.getElementById("reddit-info").style.visibility = "visible";
+                                    });
                                 }));
                             }
                         }
