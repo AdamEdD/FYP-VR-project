@@ -8,6 +8,7 @@ from firebase import firebase
 def get_data(db):
     data = []   
     user_agent = '8N_WAlEuQE4YmLgz8qC-Z5FkHUI'
+    
     r = praw.Reddit(user_agent=user_agent)
     subreddits = r.get_popular_subreddits()
     
