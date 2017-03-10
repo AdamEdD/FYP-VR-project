@@ -33,11 +33,24 @@
         width   : 100%;
         height  : 100%;
     }
-    #reddit-info {
+    #reddit-info-left {
         top: 10%;
-        left: 50%;
+        left: 10%;
         width: 20%;
-        height: 40%;
+        height: 60%;
+        background-color: azure;
+        opacity: 0.5;
+        position: absolute;
+        visibility: collapse;
+        word-wrap: break-word;
+        font-family: "Helvetica", cursive;
+        overflow: scroll;
+    }
+    #reddit-info-right {
+        top: 10%;
+        left: 60%;
+        width: 20%;
+        height: 60%;
         background-color: azure;
         opacity: 0.5;
         position: absolute;
@@ -54,13 +67,15 @@
         font-weight: bold;
     }
 </style>
+
 </head>
 <body>
 
 <canvas id="renderCanvas"></canvas>
-<div id="reddit-info">
-    <button onclick="document.getElementById('reddit-info').style.visibility = 'collapse'">X</button>
-    <h1 id="reddit-header"></h1>
+
+<div id="reddit-info-right" class="simuscroll">
+    <button id="right-closer" onclick="right_close()">X</button>
+    <h1 class="reddit-header"></h1>
     <ul class="mylist">
         <li class="reddit-item">
             <h3 class="HeaderKey"></h3>
@@ -68,20 +83,28 @@
         </li>
     </ul>
 </div>
-<!--
-<div id="video-container-left">
-    <video id="camera-stream-left" width="100%" height="100%" autoplay></video>
+    
+<div id="reddit-info-left" class="simuscroll">
+    <button id="left-closer" onclick="left_close()">X</button>
+    <h1 class="reddit-header"></h1>
+    <ul class="mylist">
+        <li class="reddit-item">
+            <h3 class="HeaderKey"></h3>
+            <a class="permalink"></a>
+        </li>
+    </ul>
 </div>
     
-<div id="video-container-right">
-    <video id="camera-stream-right" width="100%" height="100%" autoplay></video>
-</div>
-<div>
-  <input id="connectTo" autofocus>
-  <button id="connect">connect</button>
-</div>
-
-<button id="flip-button">FLIP</button>-->
+<script>
+    function left_close() {
+        document.getElementById('reddit-info-right').style.visibility = "collapse";
+        document.getElementById('reddit-info-left').style.visibility = "collapse";
+    }
+    function right_close() {
+        document.getElementById('reddit-info-right').style.visibility = "collapse";
+        document.getElementById('reddit-info-left').style.visibility = "collapse";
+    }
+</script>
 
 </body>
 </html>

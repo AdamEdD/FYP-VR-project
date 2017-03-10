@@ -139,8 +139,17 @@ class View {
                                                                     .text(' '+ item.data.permalink)
                                                                     .appendTo(li);
                                                             });
-                                                            document.getElementById('reddit-header').innerHTML = key;
-                                                            document.getElementById("reddit-info").style.visibility = "visible";
+                                                            
+                                                            $('.reddit-header').html(key);
+                                                            
+                                                            let VRscroll = $(".simuscroll");
+
+                                                            VRscroll.scroll(function() {
+                                                                VRscroll.scrollTop($(this).scrollTop());
+                                                            });
+                                                            
+                                                            document.getElementById("reddit-info-left").style.visibility = "visible";
+                                                            document.getElementById("reddit-info-right").style.visibility = "visible";
                                                         });
                                                     })
                                                 );
