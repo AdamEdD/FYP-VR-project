@@ -89,11 +89,16 @@ var View = (function () {
                                             var li = $('<li/>')
                                                 .addClass('reddit-item')
                                                 .appendTo(cList);
+                                            var hk = $('<h3/>')
+                                                .addClass('HeaderKey')
+                                                .text(' ' + item.data.author + ':')
+                                                .appendTo(li);
                                             var aaa = $('<a/>')
                                                 .addClass('permalink')
-                                                .text(item.data.author + ': \n' + item.data.permalink)
+                                                .text(' ' + item.data.permalink)
                                                 .appendTo(li);
                                         });
+                                        document.getElementById('reddit-header').innerHTML = key;
                                         document.getElementById("reddit-info").style.visibility = "visible";
                                     });
                                 }));
