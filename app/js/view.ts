@@ -41,45 +41,13 @@ class View {
       };
     
       firebase.initializeApp(config); 
-      
-      let db_RedditCo = firebase.database().ref("reddits/");
-      /*
-      let box = BABYLON.Mesh.CreateBox("box", 2, this._scene);
-      
-      let boxMaterial = new BABYLON.StandardMaterial("material", this._scene);
-      let boxTexture = new BABYLON.DynamicTexture("dynamic texture", 200, this._scene, true);
-      boxMaterial.diffuseTexture = boxTexture;
-      boxTexture.drawText('TEST', null, 100, "bold 40px helvetica", "Black", "#336699");
-      boxMaterial.emissiveColor = new BABYLON.Color3(1, 1, 1);
-      boxMaterial.alpha = 0.7;
-      box.material = boxMaterial;
-      box.convertToUnIndexedMesh();
-      
-      db_RedditCo.on("value", function(snapshot) {
-        for (let key in snapshot.val()) {
-            
-            if (snapshot.val().hasOwnProperty(key)) {   
-                for (let k in snapshot.val()[key]) {
-
-                    if (snapshot.val()[key].hasOwnProperty(k)) {
-                        
-                        let instanceofbox = box.createInstance(k);
-                        instanceofbox.position = new BABYLON.Vector3(snapshot.val()[key][k][0], 
-                                                           snapshot.val()[key][k][1],                               
-                                                            snapshot.val()[key][k][2]); //light
-                    }
-                }   
-              }
-        }
-    }, function (error) {
-                console.log("Error: " + error.code);
-    });*/
     
     function render(scene) {
         
         function euclidean(x,y): number { return Math.sqrt(Math.pow(x[0]+y[0],2)+Math.pow(x[1]+y[1],2)+Math.pow(x[2]+y[2],2)); };
 
-        let Redditcoordinates = firebase.database().ref("reddits/").once('value').then(function(snapshot) {
+        //let Redditcoordinates = firebase.database().ref("reddits/").once('value').then(function(snapshot) {
+        let Redditcoordinates = firebase.database().ref("reddits/").on("value", function(snapshot) {
             for (let key in snapshot.val()) {
 
                 if (snapshot.val().hasOwnProperty(key)) {   
