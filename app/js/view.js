@@ -10,7 +10,6 @@ var View = (function () {
         //this._camera = new BABYLON.ArcRotateCamera("Camera", 0, 0, 10, new BABYLON.Vector3(55,70,42), this._scene);
         this._camera.setTarget(BABYLON.Vector3.Zero());
         this._camera.attachControl(this._canvas, true);
-        //this._camera.attachControl(this._canvas, false);
         var config = {
             apiKey: "AIzaSyCRM15eGWx0kp3lk4Q-egBwHd0R5dqmgEU",
             authDomain: "fyp-vr-project.firebaseapp.com",

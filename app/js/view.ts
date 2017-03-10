@@ -30,8 +30,6 @@ class View {
       
       this._camera.attachControl(this._canvas, true);
       
-      //this._camera.attachControl(this._canvas, false);
-      
       let config = {
         apiKey: "AIzaSyCRM15eGWx0kp3lk4Q-egBwHd0R5dqmgEU",
         authDomain: "fyp-vr-project.firebaseapp.com",

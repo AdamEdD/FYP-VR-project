@@ -7,31 +7,24 @@
     <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
     <script src="plugins/three.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="plugins/peer-0.3.js"></script>
     <script src="js/view.js"></script>
     <script src="https://js.leapmotion.com/leap-0.6.4.min.js"></script>
-    <!--
     <script src="plugins/leap-plugins-0.1.12.min.js"></script>
     <script src="plugins/leap.rigged-hand-0.1.7.min.js"></script>
-    <script src="plugins/leap.networking-0.1.0.min.js"></script>
-    <script src="js/AR-camera.js"></script>
-    <script src="js/babylon.js"></script>
-    <script src="js/AR-camera.js"></script>
     <script src="js/rigged.js"></script>
     <script src="js/leap-hands.js"></script>
-    <script src="js/leap-networking.js"></script>-->
 
 <style>
     html, body {
         overflow: hidden;
-        width   : 100%;
-        height  : 100%;
-        margin  : 0;
-        padding : 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
     }
     #renderCanvas {
-        width   : 100%;
-        height  : 100%;
+        width: 100%;
+        height: 100%;
     }
     #reddit-info-left {
         top: 10%;
@@ -104,6 +97,11 @@
         document.getElementById('reddit-info-right').style.visibility = "collapse";
         document.getElementById('reddit-info-left').style.visibility = "collapse";
     }
+    
+    (window.controller = new Leap.Controller)
+      .use('riggedHand')
+      .connect()
+    
 </script>
 
 </body>
