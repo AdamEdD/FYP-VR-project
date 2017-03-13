@@ -27,6 +27,7 @@ var View = (function () {
                     if (snapshot.val().hasOwnProperty(key)) {
                         for (var k in snapshot.val()[key]) {
                             if (snapshot.val()[key].hasOwnProperty(k)) {
+                                console.log(key);
                                 var delta = 1 / euclidean(snapshot.val()[key][k], [51.809306223434014,
                                     51.888140847943774,
                                     48.62521675494634]);
@@ -51,6 +52,10 @@ var View = (function () {
                                 box.actionManager = new BABYLON.ActionManager(scene);
                                 box.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, function () {
                                     var url = "https://www.reddit.com/r/" + key + "/new.json?sort=new";
+                                    $(".HeaderKey").empty();
+                                    $(".reddit-item").empty();
+                                    $(".permalink").empty();
+                                    $(".myList").empty();
                                     $.getJSON(url, function (data) {
                                         var cList = $('ul.mylist');
                                         $.each(data.data.children, function (i, item) {

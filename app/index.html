@@ -7,12 +7,12 @@
     <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
     <script src="plugins/three.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="js/view.js"></script>
+    <script src="js/view.js"></script><!--
     <script src="https://js.leapmotion.com/leap-0.6.4.min.js"></script>
     <script src="plugins/leap-plugins-0.1.12.min.js"></script>
     <script src="plugins/leap.rigged-hand-0.1.7.min.js"></script>
     <script src="js/rigged.js"></script>
-    <script src="js/leap-hands.js"></script>
+    <script src="js/leap-hands.js"></script>-->
 
 <style>
     html, body {
@@ -21,6 +21,7 @@
         height: 100%;
         margin: 0;
         padding: 0;
+        background-color: black;
     }
     #renderCanvas {
         width: 100%;
@@ -59,11 +60,27 @@
     #reddit-header {
         font-weight: bold;
     }
+    #update {
+        position: absolute;
+        top: 20%;
+        left: 20%;
+        right: 20%;
+        background-color: aliceblue;
+        opacity: 0.5;
+        font-family: 'Josefin Slab', serif;
+        font-size: 40px;
+        text-align: center;
+        color: orangered;
+    }
 </style>
+    
+<link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
 
 </head>
 <body>
-
+    
+    <div id = "update">The Team are working on some updates right now. <br> we'll be back online soon!! </div>
+<!--
 <canvas id="renderCanvas"></canvas>
 
 <div id="reddit-info-right" class="simuscroll">
@@ -86,7 +103,7 @@
             <a class="permalink"></a>
         </li>
     </ul>
-</div>
+</div>-->
     
 <script>
     function left_close() {
@@ -95,12 +112,12 @@
     }
     function right_close() {
         document.getElementById('reddit-info-right').style.visibility = "collapse";
-        document.getElementById('reddit-info-left').style.visibility = "collapse";
+        document.getElementById('reddit-info-left').style.visibility = "collapse";  
     }
-    
+    /*
     (window.controller = new Leap.Controller)
       .use('riggedHand')
-      .connect()
+      .connect()*/
     
 </script>
 
