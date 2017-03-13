@@ -9,13 +9,17 @@ from firebase import firebase
 import daemon
 
 def main():
-    db = firebase.FirebaseApplication('https://fyp-vr-project.firebaseio.com/', None)   
+    print('start')
+    db = firebase.FirebaseApplication('https://fyp-vr-project.firebaseio.com/', None) 
+    print('got DB')
     get_data(db)
     init_nodes(db)
     update_nodes(db)
+    print('updating')
     position_users(db)
     reddit_con_xyz(db)
     user_to_reddit_con(db)
+    print('complete')
 
 with daemon.DaemonContext():
     main()
