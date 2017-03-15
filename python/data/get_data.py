@@ -10,28 +10,37 @@ def get_data(db):
     user_agent = '8N_WAlEuQE4YmLgz8qC-Z5FkHUI'
     
     r = praw.Reddit(user_agent=user_agent)
-    subreddits = r.get_popular_subreddits()
+    subreddits = r.get_popular_subreddits() 
     
     for subreddit in subreddits:
 
-        subreddit_ = str(subreddit)
+        alpha = str(subreddit)
 
-        comments_data = r.get_subreddit(subreddit_)
-        comments_data = comments_data.get_comments(limit=20, comment_sort="new")
+        comments_data = r.get_subreddit(alpha)
+        comments_data = comments_data.get_comments(limit=10, comment_sort="new")
         comments_data_list = [i for i in comments_data]
-
         #subscribers.append(subreddit.subscribers)
         
-        users = []
-    
+        #users = []
+        betas = []
+
         for j in comments_data_list:
             
             user = r.get_redditor(str(j.author))
             
+            for comment in user.get_comments(limit=10, comment_sort="new"):
+            
+                #sub = [subs.append(str(comment.subreddit)) for comment in user.get_comments(limit=10, comment_sort="new")]
+            
+                betas.append(str(comment.subreddit))
+            """
             db.post('/users/%s'%(str(user)),
-                               [str(comment.subreddit) for comment in user.get_comments(limit=20, comment_sort="new")]
+                               [str(comment.subreddit) for comment in user.get_comments(limit=10, comment_sort="new")]
                     
                     )
-            connections = [str(comment.subreddit) for comment in user.get_comments(limit=20, comment_sort="new")]
+            connections = [str(comment.subreddit) for comment in user.get_comments(limit=10, comment_sort="new")]"""
             
-        db.post('/reddit_con/%s/'%(subreddit_),connections)
+        db.post('/reddit_con/%s/'%(alpha),betas)
+
+        betas[:]=[]
+            
