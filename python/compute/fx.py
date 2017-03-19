@@ -6,7 +6,7 @@ import math
 
 def f(alpha, beta):
     """f(a,b)
-    returns updated coordinates to db
+    returns updated coordinates to database
     """
     xco = 0
     yco = 1
@@ -21,6 +21,7 @@ def f(alpha, beta):
             step.append(coordinate)
         else:
             step.append(coordinate/(math.fabs(coordinate-math.exp(-1)))/coordinate)
-    update = [beta[n]+delta[n]*step[n] for n in range(len(step))]
+    update = [beta[n]+delta[n]*step[n] if beta[n] < alpha[n]
+              else beta[n]-delta[n]*step[n] for n in range(len(step))]
     # step is returned for testing purposes
     return update, step

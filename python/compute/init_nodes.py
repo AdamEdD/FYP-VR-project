@@ -8,8 +8,8 @@ def init_nodes(database):
     assign uniform random postions to each node
     """
     database.post('/reddits/%s'%('init'), (0, 0, 0))
-    for value in database.get('/reddit_con/', None).itervalues()():
-        for jth in value.itervalues()():
+    for value in database.get('/reddit_con/', None).itervalues():
+        for jth in value.itervalues():
             for item in jth:
                 if database.get('/reddits/', item) is None:
                     x_co = uniform(0, 100.0)

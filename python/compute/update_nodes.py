@@ -1,11 +1,11 @@
 """update nodes
-updates node positions in db
+updates node positions in database
 """
 from fx import f
 
 def update_nodes(database):
     """update nodes
-    module to update nodes in db
+    module to update nodes in database
     beta nodes are moved toward alpha nodes
     computation takes place in compute.fx
     """

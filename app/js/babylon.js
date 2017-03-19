@@ -17,7 +17,7 @@
     
     BABYLON.SceneOptimizer.OptimizeAsync(scene)
     	
-    var camera = new BABYLON.VRDeviceOrientationFreeCamera("DevOr_camera", new BABYLON.Vector3(55,70,42), scene);
+    var camera = new BABYLON.VRDeviceOrientationFreeCamera("DevOr_CAMERA", new BABYLON.Vector3(55,70,42), scene);
     //camera.inputs.removeByType("FreeCameraVRDeviceOrientationInput");
 
     camera.setTarget(new BABYLON.Vector3(0, 0, 10));

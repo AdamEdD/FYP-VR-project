@@ -9,7 +9,7 @@ from fx import f
 def realtime(database):
     """realtime updates
     provides realtime updates
-    finds new subreddits and adds them to the db
+    finds new subreddits and adds them to the database
     """
     xco = 0
     yco = 1
@@ -21,11 +21,11 @@ def realtime(database):
             subreddit = reddit.get_subreddit(key)
             for key, value_co in database.get('/reddits/', str(subreddit)).items():
                 alpha = value_co
-            comments = subreddit.get_comments(limit=10, comment_sort="new")
+            comments = subreddit.get_comments(limit=25, comment_sort="new")
             comments_list = [i for i in comments]
             for j in comments_list:
                 user = reddit.get_redditor(str(j.author))
-                for potential in user.get_comments(limit=10, comment_sort="new"):
+                for potential in user.get_comments(limit=25, comment_sort="new"):
                     if database.get('/reddits/', str(potential.subreddit)) is None:
                         x_co = uniform(0, 100.0)
                         y_co = uniform(0, 100.0)
