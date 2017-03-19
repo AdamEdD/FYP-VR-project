@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
+    
+    <script src="babylon.2.4.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
+    <script src="plugins/three.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/view.js"></script><!--
+    <script src="https://js.leapmotion.com/leap-0.6.4.min.js"></script>
+    <script src="plugins/leap-plugins-0.1.12.min.js"></script>
+    <script src="plugins/leap.rigged-hand-0.1.7.min.js"></script>
+    <script src="js/rigged.js"></script>
+    <script src="js/leap-hands.js"></script>-->
+
+<style>
+    html, body {
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background-color: black;
+    }
+    #renderCanvas {
+        width: 100%;
+        height: 100%;
+    }
+    #reddit-info-left {
+        top: 10%;
+        left: 10%;
+        width: 20%;
+        height: 60%;
+        background-color: azure;
+        opacity: 0.5;
+        position: absolute;
+        visibility: collapse;
+        word-wrap: break-word;
+        font-family: "Helvetica", cursive;
+        overflow: scroll;
+    }
+    #reddit-info-right {
+        top: 10%;
+        left: 60%;
+        width: 20%;
+        height: 60%;
+        background-color: azure;
+        opacity: 0.5;
+        position: absolute;
+        visibility: collapse;
+        word-wrap: break-word;
+        font-family: "Helvetica", cursive;
+        overflow: scroll;
+    }
+    button {
+        color: crimson;
+        font-weight: bolder;
+    }
+    #reddit-header {
+        font-weight: bold;
+    }
+</style>
+
+</head>
+<body>
+
+<canvas id="renderCanvas"></canvas>
+
+<div id="reddit-info-right" class="simuscroll">
+    <button id="right-closer" onclick="right_close()">X</button>
+    <h1 class="reddit-header"></h1>
+    <ul class="mylist">
+        <li class="reddit-item">
+            <h3 class="HeaderKey"></h3>
+            <a class="permalink"></a>
+        </li>
+    </ul>
+</div>
+    
+<div id="reddit-info-left" class="simuscroll">
+    <button id="left-closer" onclick="left_close()">X</button>
+    <h1 class="reddit-header"></h1>
+    <ul class="mylist">
+        <li class="reddit-item">
+            <h3 class="HeaderKey"></h3>
+            <a class="permalink"></a>
+        </li>
+    </ul>
+</div>
+    
+<script>
+    function left_close() {
+        document.getElementById('reddit-info-right').style.visibility = "collapse";
+        document.getElementById('reddit-info-left').style.visibility = "collapse";
+    }
+    function right_close() {
+        document.getElementById('reddit-info-right').style.visibility = "collapse";
+        document.getElementById('reddit-info-left').style.visibility = "collapse";  
+    }
+    /*
+    (window.controller = new Leap.Controller)
+      .use('riggedHand')
+      .connect()*/
+    
+</script>
+
+</body>
+</html>
